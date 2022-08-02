@@ -1,11 +1,23 @@
 package com.example.android.guesstheword.screens.game
 
+import android.content.IntentSender
+import android.os.CountDownTimer
+import android.text.format.DateUtils
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
 
+    companion object {
+        private  const val DONE =0L
+
+        private  const val ONE_SECOND =1000L
+
+        private  const val COUNTDOWN_TIME =6000L
+    }
+
+    private val timer: CountDownTimer
     var word = ""
 
     // The current score
@@ -19,6 +31,16 @@ class GameViewModel : ViewModel() {
         resetList()
         nextWord()
         score.value=0
+
+        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
+            override fun onTick(millisUntilFinished: Long) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFinish() {
+                TODO("Not yet implemented")
+            }
+        }
     }
 
     override fun onCleared() {
@@ -73,9 +95,8 @@ class GameViewModel : ViewModel() {
     private fun nextWord() {
         //Select and remove a word from the list
         if (wordList.isEmpty()) {
-            //gameFinished()
-        } else {
-            word = wordList.removeAt(0)
+            resetList()
         }
+            word = wordList.removeAt(0)
     }
 }
